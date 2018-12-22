@@ -81,86 +81,83 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 	def generate_question(self):
 		total_question_count = 0
 		correct_count = 0
-		start_time = time.time()
 		if len(self.operation_type) < 1:
 			print("Please input an operation you'd like to be tested on.")
 		
 		if self.operation_type[0] == 'all':
-			while (time.time() - start.time) < num_seconds:
-				for operation in operation_dict.keys():
-					symbol = operation_symbol_dict[operation]
-					if operation in ['addition', 'subtraction', 'multiplication', 'division', 'exponentiation']:
-						# print problem for user to compute
-						oper_obj = BinaryOperation()
-						operand1, operand2 = oper_obj.operands
-						answer = oper_obj.operation_dict[operation]()
+			for operation in operation_dict.keys():
+				symbol = operation_symbol_dict[operation]
+				if operation in ['addition', 'subtraction', 'multiplication', 'division', 'exponentiation']:
+					# print problem for user to compute
+					oper_obj = BinaryOperation()
+					operand1, operand2 = oper_obj.operands
+					answer = oper_obj.operation_dict[operation]()
 
-						try:
-							user_input = int(input("{num_1} {symbol} {num_2}".format(num_1 = operand1, symbol = symbol, num_2 = operand2))) 
-						
-						except ValueError:
-        						print("Enter a number only.")
- 						        continue
+					try:
+						user_input = int(input("{num_1} {symbol} {num_2}".format(num_1 = operand1, symbol = symbol, num_2 = operand2))) 
+					
+					except ValueError:
+    						print("Enter a number only.")
+						        continue
 
-						# validate user answer
-						checker = ValidAnswer(user_input, answer)
-						correct_count += checker.check_answer
-				
-					elif operation in ['square root', 'perfect square']:
-						# print problem for user to compute
-                                                oper_obj = UnaryOperation()
-                                                operand1 = oper_obj.operands
-                                                answer = oper_obj.operation_dict[operation]()
-                                                
-						try:
-                                                        user_input = int(input("{symbol} {num_1}".format(symbol = symbol, num_1 = operand1)))
-							total_question_count += 1
+					# validate user answer
+					checker = ValidAnswer(user_input, answer)
+					correct_count += checker.check_answer
+			
+				elif operation in ['square root', 'perfect square']:
+					# print problem for user to compute
+                                            oper_obj = UnaryOperation()
+                                            operand1 = oper_obj.operands
+                                            answer = oper_obj.operation_dict[operation]()
+                                            
+					try:
+                                                    user_input = int(input("{symbol} {num_1}".format(symbol = symbol, num_1 = operand1)))
+						total_question_count += 1
 
-                                                except ValueError:
-                                                        print("Enter a number only.")
-                                                        continue
+                                            except ValueError:
+                                                    print("Enter a number only.")
+                                                    continue
 
-                                                # validate user answer
-                                                checker = ValidAnswer(user_input, answer)
-                                                correct_count += checker.check_answer
+                                            # validate user answer
+                                            checker = ValidAnswer(user_input, answer)
+                                            correct_count += checker.check_answer
 		else:
-			while (time.time() - start.time) < num_seconds:
-				for operation in self.operation_type:
-					symbol = operation_symbol_dict[operation]
-                                        if operation in ['addition', 'subtraction', 'multiplication', 'division', 'exponentiation']:
-                                                # print problem for user to compute
-                                                oper_obj = BinaryOperation()
-                                                operand1, operand2 = oper_obj.operands
-                                                answer = oper_obj.operation_dict[operation]()
+			for operation in self.operation_type:
+				symbol = operation_symbol_dict[operation]
+                                    if operation in ['addition', 'subtraction', 'multiplication', 'division', 'exponentiation']:
+                                            # print problem for user to compute
+                                            oper_obj = BinaryOperation()
+                                            operand1, operand2 = oper_obj.operands
+                                            answer = oper_obj.operation_dict[operation]()
 
-                                                try:
-                                                        user_input = int(input("{num_1} {symbol} {num_2}".format(num_1 = operand1, symbol = symbol, num_2 = operand2)))
-							total_question_count += 1
+                                            try:
+                                                    user_input = int(input("{num_1} {symbol} {num_2}".format(num_1 = operand1, symbol = symbol, num_2 = operand2)))
+						total_question_count += 1
 
-                                                except ValueError:
-                                                        print("Enter a number only.")
-                                                        continue
+                                            except ValueError:
+                                                    print("Enter a number only.")
+                                                    continue
 
-                                                # validate user answer
-                                                checker = ValidAnswer(user_input, answer)
-                                                correct_count += checker.check_answer
+                                            # validate user answer
+                                            checker = ValidAnswer(user_input, answer)
+                                            correct_count += checker.check_answer
 
-                                        elif operation in ['square root', 'perfect square']:
-                                                # print problem for user to compute
-                                                oper_obj = UnaryOperation()
-                                                operand1 = oper_obj.operands
-                                                answer = oper_obj.operation_dict[operation]()
+                                    elif operation in ['square root', 'perfect square']:
+                                            # print problem for user to compute
+                                            oper_obj = UnaryOperation()
+                                            operand1 = oper_obj.operands
+                                            answer = oper_obj.operation_dict[operation]()
 
-                                                try:
-                                                        user_input = int(input("{symbol} {num_1}".format(symbol = symbol, num_1 = operand1)))
+                                            try:
+                                                    user_input = int(input("{symbol} {num_1}".format(symbol = symbol, num_1 = operand1)))
 
-                                                except ValueError:
-                                                        print("Enter a number only.")
-                                                        continue
+                                            except ValueError:
+                                                    print("Enter a number only.")
+                                                    continue
 
-                                                # validate user answer
-                                                checker = ValidAnswer(user_input, answer)
-                                                correct_count += checker.check_answer
+                                            # validate user answer
+                                            checker = ValidAnswer(user_input, answer)
+                                            correct_count += checker.check_answer
 
 		print("Time's up. You got {x} questions correct out of {y} total questions".format(x = correct_count, y = total_question_count)) 
 					
