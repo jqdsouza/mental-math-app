@@ -2,16 +2,14 @@ import math
 import time
 import random
 
-class RandomNumGen:
-        def __init__(self, lower_bound, upper_bound, operands):
+class OperandGenerator:
+        def __init__(self, num_operands, lower_bound, upper_bound, operands):
                 self.n = num_operands
 		self.lower_bound = lower_bound
 		self.upper_bound = upper_bound
                 self.operands = [random.randint(self.lower_bound, self.upper_bound) for i in range(n-1)]
 
-        def generate_questions(self):
-
-class BinaryOperation(RandomNumGen):
+class BinaryOperation(OperandGenerator):
 	def __init__(self):
 		RandomNumGen.__init__(self, 2)
 
@@ -40,7 +38,7 @@ class BinaryOperation(RandomNumGen):
 		val = num1 ** num2
 		return val
 
-class UnaryOperation(RandomNumGen):
+class UnaryOperation(OperandGenerator):
 	def __init__(self):
 		RandomNumGen.__init__(self, 1)
 
@@ -54,7 +52,17 @@ class UnaryOperation(RandomNumGen):
                 val = math.sqrt(num1)
                 return val
 
+class QuestionGenerator(BinaryOperation, UnaryOperation):
+	operation_dict = {'addition' : addition, 'subtraction' : subtraction, 'multiplication' : multiplication, 
+		'division' : division, 'square root' : square_root, 'perfect square' : perfect_square}
 
+	def __init__(self, operation_type = ['all']):
+		self.operation = operation_dict[operation_type]
+	
+	def generate_question(self, operation_type):
+		## TODO
+				
+		
 
 class ValidAnswer:
 	def __init__(self, user_input, answer):
