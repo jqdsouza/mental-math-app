@@ -3,10 +3,10 @@ import time
 import random
 
 class OperandGenerator:
-        def __init__(self, num_operands):
+        def __init__(self, num_operands, lower_bound = 2, upper_bound = 100):
                 self.n = num_operands
-		self.lower_bound = input("Enter an lower bound integer.")
-		self.upper_bound = input("Enter an upper bound integer.")
+		self.lower_bound = lower_bound
+		self.upper_bound = upper_bound
                 self.operands = [random.randint(self.lower_bound, self.upper_bound) for i in range(num_operands-1)]
 
 class BinaryOperation(OperandGenerator):
