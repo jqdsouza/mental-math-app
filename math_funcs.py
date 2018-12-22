@@ -11,7 +11,7 @@ class OperandGenerator:
 
 class BinaryOperation(OperandGenerator):
 	def __init__(self):
-		RandomNumGen.__init__(self, 2)
+		OperandGenerator.__init__(self, 2)
 
 	def addition(self):
 		num1, num2 = self.operands
@@ -40,7 +40,7 @@ class BinaryOperation(OperandGenerator):
 
 class UnaryOperation(OperandGenerator):
 	def __init__(self):
-		RandomNumGen.__init__(self, 1)
+		OperandGenerator.__init__(self, 1)
 
 	def perfect_square(self):
       		num1  = self.operands
