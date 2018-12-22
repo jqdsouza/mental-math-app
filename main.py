@@ -6,5 +6,5 @@ if __name__ == "__main__":
 	upper_bound = input("Give an upper bound integer.")
 	operations = raw_input("Select from the following operations: multiplication, addition, subtraction, division, 
 		exponentiation, perfect squares, square roots. Type 'all' if you'd like to be tested on every operation.")
-
+	num_seconds = input("Give the length of time (in seconds) that you'd like to be tested for.")
 	
