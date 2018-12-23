@@ -10,52 +10,47 @@ class OperandGenerator:
         self.n = num_operands
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
-        self.operands = [random.randint(self.lower_bound, self.upper_bound) for i in range(num_operands-1)]
+        self.operands = [random.randint(self.lower_bound, self.upper_bound) for i in range(num_operands)]
 
 class BinaryOperation(OperandGenerator):
-	def __init__(self):
+	def __init__(self, num1 = None, num2 = None):
 		OperandGenerator.__init__(self, 2)
+		self.num1, self.num2 = self.operands
 
 	def addition(self):
-		num1, num2 = self.operands
-		val = num1 + num2
+		val = self.num1 + self.num2
 		return val
 
 	def subtraction(self):
-		num1, num2 = self.operands
-		val = num1 - num2
+		val = self.num1 - self.num2
 		return val
 
 	def multiplication(self):
-		num1, num2 = self.operands
-		val = num1 * num2
+		val = self.num1 * self.num2
 		return val
 
 	def division(self):
-		num1, num2 = self.operands
-		val = num1 / num2
+		val = self.num1 / self.num2
 		return val
 
 	def exponentiation(self):
-		num1, num2 = self.operands
-		val = num1 ** num2
+		val = self.num1 ** self.num2
 		return val
 
 class UnaryOperation(OperandGenerator):
-	def __init__(self):
+	def __init__(self, num1 = None):
 		OperandGenerator.__init__(self, 1)
+		self.num1 = self.operands
 
 	def perfect_square(self):
-		num1  = self.operands
-		val = num1 ** 2
+		val = self.num1 ** 2
 		return val
 
 	def square_root(self):
-		num1 = self.operands
-		val = math.sqrt(num1)
+		val = math.sqrt(self.num1)
 		return val
 
-class ValidAnswer:
+class ValidateAnswer:
         def __init__(self, user_input, answer):
             self.user_input = user_input
             self.answer = answer
@@ -69,17 +64,31 @@ class ValidAnswer:
 
             return output
 
-class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
-	operation_dict = {'addition' : BinaryOperation.addition, 'subtraction' : BinaryOperation.subtraction, 'multiplication' : BinaryOperation.multiplication, 'exponentiation' : BinaryOperation.exponentiation, 
-		'division' : BinaryOperation.division, 'square root' : UnaryOperation.square_root, 'perfect square' : UnaryOperation.perfect_square}
-	operation_symbol_dict = {'addition' : '+', 'subtraction' : '-', 'multiplication' : 'x', 'division' : '/', 'exponentiation' : '^', 
-		 'square root' : 'Square root of ', 'perfect square' : 'Perfect square of '}
+class QuestionGenerator(BinaryOperation, UnaryOperation, ValidateAnswer):
+	operation_symbol_dict = {
+		'addition' : '+', 
+		'subtraction' : '-', 
+		'multiplication' : 'x', 
+		'division' : '/', 
+		'exponentiation' : '^', 
+		'square root' : 'Square root of ', 
+		'perfect square' : 'Perfect square of '
+		}
 
 	def __init__(self, num_seconds, operation_type = [], lower_bound = 2, upper_bound= 100):
 		self.num_seconds = num_seconds
 		self.operation_type = operation_type
 		self.lower_bound = lower_bound
 		self.upper_bound = upper_bound
+		operation_dict = {
+			'addition' : super().addition(), 
+			'subtraction' : super().subtraction(), 
+			'multiplication' : super().multiplication(), 
+			'exponentiation' : super().exponentiation(), 
+			'division' : super().division(), 
+			'square root' : super().square_root(), 
+			'perfect square' : super().perfect_square()
+		}
 	
 	def generate_question(self):
 		print("self.operation_type[0]: ", self.operation_type)
@@ -90,11 +99,11 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 			print("symbol: ", symbol)
 			if operation in ['addition', 'subtraction', 'multiplication', 'division', 'exponentiation']:
 				# print problem for user to compute
-				oper_obj = BinaryOperation()
-				operand1, operand2 = oper_obj.operands
+				binary_obj = BinaryOperation()
+				operand1, operand2 = binary_obj.operands
 				print("operand 1: ", operand1)
 				print("operand 2: ", operand2)
-				answer = oper_obj.operation_dict[operation]()
+				answer = operation_dict[operation]()
 
 				try:
 					user_input = int(input("{num_1} {symbol} {num_2}".format(num_1 = operand1, symbol = symbol, num_2 = operand2))) 
@@ -104,14 +113,14 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 					continue
 
 				# validate user answer
-				checker = ValidAnswer(user_input, answer)
+				checker = ValidateAnswer(user_input, answer)
 				correct_count += checker.check_answer
 		
 			elif operation in ['square root', 'perfect square']:
 				# print problem for user to compute
-				oper_obj = UnaryOperation()
-				operand1 = oper_obj.operands
-				answer = oper_obj.operation_dict[operation]()
+				unary_obj = UnaryOperation()
+				operand1 = unary_obj.operands
+				answer = operation_dict[operation]
                                         
 				try:
 					user_input = int(input("{symbol} {num_1}".format(symbol = symbol, num_1 = operand1)))
@@ -122,7 +131,7 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 					continue
 
 				# validate user answer
-				checker = ValidAnswer(user_input, answer)
+				checker = ValidateAnswer(user_input, answer)
 				correct_count += checker.check_answer
 				
 				

@@ -24,4 +24,4 @@ if __name__ == "__main__":
 		question_obj.generate_question()
 
 	print("Time's up. You got {x} questions correct out of {y} total questions".format(x = correct_count, y = total_question_count)) 
-	
+
