@@ -2,6 +2,9 @@ import math
 import time
 import random
 
+total_question_count = 0
+correct_count = 0
+
 class OperandGenerator:
     def __init__(self, num_operands, lower_bound = 2, upper_bound = 100):
         self.n = num_operands
@@ -79,8 +82,6 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 		self.upper_bound = upper_bound
 	
 	def generate_question(self):
-		total_question_count = 0
-		correct_count = 0
 		if len(self.operation_type) < 1:
 			print("Please input an operation you'd like to be tested on.")
 		

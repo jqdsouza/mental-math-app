@@ -23,5 +23,5 @@ if __name__ == "__main__":
 	while time.time() < start_time + num_seconds:
 		question_obj.generate_question()
 
-	# print("Time's up. You got {x} questions correct out of {y} total questions".format(x = correct_count, y = total_question_count)) 
+	print("Time's up. You got {x} questions correct out of {y} total questions".format(x = correct_count, y = total_question_count)) 
 	
