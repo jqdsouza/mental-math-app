@@ -121,8 +121,6 @@ class QuestionGenerator(BinaryOperation, UnaryOperation, ValidAnswer):
 					# validate user answer
 					checker = ValidAnswer(user_input, answer)
 					correct_count += checker.check_answer
-
-		print("Time's up. You got {x} questions correct out of {y} total questions".format(x = correct_count, y = total_question_count)) 
 					
 					
 					
